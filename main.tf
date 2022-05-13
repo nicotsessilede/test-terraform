@@ -32,11 +32,6 @@ resource "azurerm_public_ip" "pip1" {
   sku                 = "Standard"
 }
 
-
-
-
-}
-
 resource "azurerm_container_group" "Container_instances" {
   name                = "dev-continst"
   location            = azurerm_resource_group.rg1.location
@@ -126,4 +121,4 @@ data "azurerm_container_group" "mycon" {
   name                = "dev-hello-world"
   resource_group_name = "myResourceGroupAG"
 }
-
+]
