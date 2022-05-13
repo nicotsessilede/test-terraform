@@ -119,7 +119,7 @@ resource "azurerm_container_group" "Container_instances" {
 
 
 data "azurerm_container_group" "mycon" {
-  name                = "${var.env}-hello-world"
+  name                = "dev-hello-world"
   resource_group_name = "resource-group"
 }
 
