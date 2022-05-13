@@ -121,4 +121,4 @@ data "azurerm_container_group" "mycon" {
   name                = "dev-hello-world"
   resource_group_name = "myResourceGroupAG"
 }
-]
+}
