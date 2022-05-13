@@ -120,6 +120,6 @@ resource "azurerm_container_group" "Container_instances" {
 
 data "azurerm_container_group" "mycon" {
   name                = "dev-hello-world"
-  resource_group_name = "rg1"
+  resource_group_name = "myResourceGroupAG"
 }
 
