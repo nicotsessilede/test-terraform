@@ -93,7 +93,7 @@ resource "azurerm_container_group" "Container_instances" {
   name                = "dev-continst"
   location            = azurerm_resource_group.rg1.location
   resource_group_name = azurerm_resource_group.rg1.name
-  ip_address_type     = "public"
+  ip_address_type     = "private"
   dns_name_label      = "dev-aci-label"
   os_type             = "Linux"
 
