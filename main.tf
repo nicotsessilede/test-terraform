@@ -118,6 +118,6 @@ resource "azurerm_container_group" "Container_instances" {
 
 
 data "azurerm_container_group" "mycon" {
-  name                = "dev-hello-world"
+  name                = "dev-continst"
   resource_group_name = azurerm_resource_group.rg1.name
 }
