@@ -86,11 +86,6 @@ resource "azurerm_application_gateway" "network" {
     public_ip_address_id = azurerm_public_ip.pip1.id
   }
 
-  backend_address_pool {
-    name = var.backend_address_pool_name
-    ip_addresses = [data.azurerm_container_group.mycon.ip_address, "2.3.4.5"]
-  }
-
   backend_http_settings {
     name                  = var.http_setting_name
     cookie_based_affinity = "Disabled"
@@ -114,8 +109,10 @@ resource "azurerm_application_gateway" "network" {
     backend_http_settings_name = var.http_setting_name
   }
 
-
-
+  backend_address_pool {
+    name = var.backend_address_pool_name
+    ip_addresses = [data.azurerm_container_group.mycon.ip_address, "2.3.4.5"]
+  }
 
 data "azurerm_container_group" "mycon" {
   name                = "dev-hello-world"
