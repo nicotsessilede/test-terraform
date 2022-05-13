@@ -141,14 +141,12 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "Dynamic"
   }
 }
-/*
 resource "azurerm_network_interface_application_gateway_backend_address_pool_association" "nic-assoc01" {
   count = 2
   network_interface_id    = azurerm_network_interface.nic[count.index].id
   ip_configuration_name   = "nic-ipconfig-${count.index+1}"
   backend_address_pool_id = azurerm_application_gateway.network.backend_address_pool[0].id
 }
-*/
 resource "random_password" "password" {
   length = 16
   special = true
