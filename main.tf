@@ -62,6 +62,7 @@ resource "azurerm_application_gateway" "network" {
 
   backend_address_pool {
     name = var.backend_address_pool_name
+    ip_addresses = [data.azurerm_container_group.mycon.ip_address, "2.3.4.5"]
   }
 
   backend_http_settings {
@@ -88,6 +89,45 @@ resource "azurerm_application_gateway" "network" {
   }
 }
 
+resource "azurerm_container_group" "Container_instances" {
+  name                = "${var.env}-continst"
+  location            = azurerm_resource_group.resource-group.location
+  resource_group_name = azurerm_resource_group.resource-group.name
+  ip_address_type     = "public"
+  dns_name_label      = "${var.env}-aci-label"
+  os_type             = "Linux"
+
+  container {
+    name   = "${var.env}-hello-world"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
+    cpu    = "0.5"
+    memory = "1.5"
+
+    ports {
+      port     = 443
+      protocol = "TCP"
+    }
+  }
+
+  container {
+    name   = "sidecar"
+    image  = "mcr.microsoft.com/azuredocs/aci-tutorial-sidecar"
+    cpu    = "0.5"
+    memory = "1.5"
+  }
+
+  tags = {
+    "env" = "${var.env}"
+  }
+}
+
+
+data "azurerm_container_group" "mycon" {
+  name                = "${var.env}-hello-world"
+  resource_group_name = "resource-group"
+}
+
+
 /*
 resource "azurerm_network_interface" "nic" {
   count = 2
@@ -101,14 +141,14 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "Dynamic"
   }
 }
-
+/*
 resource "azurerm_network_interface_application_gateway_backend_address_pool_association" "nic-assoc01" {
   count = 2
   network_interface_id    = azurerm_network_interface.nic[count.index].id
   ip_configuration_name   = "nic-ipconfig-${count.index+1}"
   backend_address_pool_id = azurerm_application_gateway.network.backend_address_pool[0].id
 }
-
+*/
 resource "random_password" "password" {
   length = 16
   special = true
