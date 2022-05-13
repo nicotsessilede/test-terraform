@@ -117,7 +117,7 @@ resource "azurerm_container_group" "Container_instances" {
 }
 
 
-data "azurerm_container_group" "mycon" {
-  name                = "dev-continst"
+data "azurerm_container_group" "dev-continst" {
+  name                = "mycon"
   resource_group_name = azurerm_resource_group.rg1.name
 }
