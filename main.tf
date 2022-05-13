@@ -34,6 +34,37 @@ resource "azurerm_public_ip" "pip1" {
 
 
 
+
+}
+
+resource "azurerm_container_group" "Container_instances" {
+  name                = "dev-continst"
+  location            = azurerm_resource_group.rg1.location
+  resource_group_name = azurerm_resource_group.rg1.name
+  ip_address_type     = "Private"
+  dns_name_label      = "dev-aci-label"
+  os_type             = "Linux"
+
+  container {
+    name   = "dev-hello-world"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
+    cpu    = "0.5"
+    memory = "1.5"
+
+    ports {
+      port     = 443
+      protocol = "TCP"
+    }
+  }
+
+  container {
+    name   = "sidecar"
+    image  = "mcr.microsoft.com/azuredocs/aci-tutorial-sidecar"
+    cpu    = "0.5"
+    memory = "1.5"
+  }
+}
+
 resource "azurerm_application_gateway" "network" {
   name                = "myAppGateway"
   resource_group_name = azurerm_resource_group.rg1.name
@@ -87,35 +118,8 @@ resource "azurerm_application_gateway" "network" {
     backend_address_pool_name  = var.backend_address_pool_name
     backend_http_settings_name = var.http_setting_name
   }
-}
 
-resource "azurerm_container_group" "Container_instances" {
-  name                = "dev-continst"
-  location            = azurerm_resource_group.rg1.location
-  resource_group_name = azurerm_resource_group.rg1.name
-  ip_address_type     = "Private"
-  dns_name_label      = "dev-aci-label"
-  os_type             = "Linux"
 
-  container {
-    name   = "dev-hello-world"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
-    cpu    = "0.5"
-    memory = "1.5"
-
-    ports {
-      port     = 443
-      protocol = "TCP"
-    }
-  }
-
-  container {
-    name   = "sidecar"
-    image  = "mcr.microsoft.com/azuredocs/aci-tutorial-sidecar"
-    cpu    = "0.5"
-    memory = "1.5"
-  }
-}
 
 
 data "azurerm_container_group" "mycon" {
