@@ -19,7 +19,7 @@ variable "listener_name" {
 }
 
 variable "request_routing_rule_name" {
-    default = ""${azurerm_virtual_network.vnet1.name}-rqrt"
+    default = "${azurerm_virtual_network.vnet1.name}-rqrt"
 }
 
 variable "redirect_configuration_name" {
