@@ -104,7 +104,7 @@ resource "azurerm_container_group" "Container_instances" {
     memory = "1.5"
 
     ports {
-      port     = 443
+      port     = 80
       protocol = "TCP"
     }
   }
