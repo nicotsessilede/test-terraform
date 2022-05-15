@@ -95,6 +95,7 @@ resource "azurerm_container_group" "Container_instances" {
   location            = azurerm_resource_group.rg1.location
   resource_group_name = azurerm_resource_group.rg1.name
   os_type             = "Linux"
+  ip_address_type     = "private"
 
   container {
     name   = "dev-hello-world"
