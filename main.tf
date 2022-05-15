@@ -86,6 +86,7 @@ resource "azurerm_application_gateway" "network" {
     http_listener_name         = var.listener_name
     backend_address_pool_name  = var.backend_address_pool_name
     backend_http_settings_name = var.http_setting_name
+    priority                    = 1
   }
 }
 
